@@ -22,9 +22,10 @@ Following the next steps, you should be able to compile and execute the project 
   - `mv tmp/src .` 
   - `mv tmp/test .`
 - Create backups for the .cabal files created (optional).
-- Add dependencies from the tmp.cabal to the snap.cabal
-- Replace all `tmp` ocurrences with `snap` in the snap.cabal file.
-  - Compare the snap.cabal and snap.cabal.orig (optional).
+- Copy the package.yaml to the root folder.
+- Add dependencies from the tmp.cabal to the package.yaml
+- Replace all `tmp` ocurrences with `snap` in the package.yaml file.
+  - Compare the snap.cabal.orig and package.yaml (optional).
 - Recompile the project.
 - Finally, start the web server with the command `stack exec snap`
   - It listens on the port 8000 for default.
