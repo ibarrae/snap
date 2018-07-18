@@ -2,3 +2,8 @@ resolver: lts-12.1
 
 packages:
 - .
+
+ghc-options:
+  "$locals": -Wall
+  "$targets": -Werror
+  "$everything": -O2
