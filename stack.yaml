@@ -1,9 +1,7 @@
-resolver: lts-12.1
+resolver: lts-11.17
 
 packages:
 - .
 
-ghc-options:
-  "$locals": -Wall
-  "$targets": -Werror
-  "$everything": -O2
+extra-deps:
+  - snaplet-persistent-0.6.0

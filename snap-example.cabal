@@ -2,10 +2,10 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 7b1a1771c978c14d91390fbd6ac431956821b8b0624b4ed5098561953569d81b
+-- hash: 5a621c580b390a4bc8c79b640cabbbd13805c604c74136119eede9da1823a1b6
 
-name:           snap
-version:        1.0.1
+name:           snap-example
+version:        1.0.2
 description:    Please see the README on GitHub at <https://github.com/kinorius123/snap#readme>
 homepage:       https://github.com/kinorius123/snap#readme
 bug-reports:    https://github.com/kinorius123/snap/issues
@@ -25,40 +25,74 @@ source-repository head
   location: https://github.com/kinorius123/snap
 
 library
+  exposed-modules:
+      Application
+      Model.User
+      Site
   other-modules:
-      Paths_snap
+      Paths_snap_example
   hs-source-dirs:
       src
-  build-depends:
-      base >=4.7 && <5
-  default-language: Haskell2010
-
-executable snap-exe
-  main-is: Main.hs
-  other-modules:
-      Paths_snap
-  hs-source-dirs:
-      app
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Werror
   build-depends:
       base >=4.7 && <5
     , bytestring
+    , lens
     , mtl
+    , persistent
+    , persistent-template
     , snap
     , snap-core
     , snap-server
+    , snaplet-persistent
+    , text
+    , time
   default-language: Haskell2010
 
-test-suite snap-test
+executable snap-example-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_snap_example
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , lens
+    , mtl
+    , persistent
+    , persistent-template
+    , snap
+    , snap-core
+    , snap-example
+    , snap-server
+    , snaplet-persistent
+    , text
+    , time
+  default-language: Haskell2010
+
+test-suite snap-example-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_snap
+      Paths_snap_example
   hs-source-dirs:
       test
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , bytestring
     , hspec
+    , lens
+    , mtl
+    , persistent
+    , persistent-template
     , snap
+    , snap-core
+    , snap-example
+    , snap-server
+    , snaplet-persistent
+    , text
+    , time
   default-language: Haskell2010
