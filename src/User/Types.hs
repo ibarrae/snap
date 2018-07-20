@@ -1,12 +1,11 @@
 {-# OPTIONS_GHC -fno-warn-orphans #-}
-{-# LANGUAGE RecordWildCards, TypeSynonymInstances, FlexibleInstances #-}
+{-# LANGUAGE RecordWildCards, TypeSynonymInstances, FlexibleInstances, OverloadedStrings #-}
 module User.Types where
 
 import Data.Time.Calendar
 import Snap.Snaplet.PostgresqlSimple
 import Database.PostgreSQL.Simple.ToField
 import Database.PostgreSQL.Simple.FromField
-import Data.Decimal
 
 data User = User
   { userKey       :: Int
@@ -15,25 +14,23 @@ data User = User
   , userBirthDate :: Day
   , userPassword  :: String
   , userGender    :: Gender
-  , userIncome    :: Decimal}
+  , userIncome    :: Double}
 
 data Gender 
   = Male
   | Female
   | Other
-  deriving (Show,Eq)
+  deriving (Show,Eq,Read)
 
 instance ToField Gender where
   toField = toField . show
 
 instance FromField Gender where
-  fromField = fromField 
-
-instance ToField Decimal where
-  toField = toField
-
-instance FromField Decimal where
-  fromField = fromField
+  fromField _ d = do
+    let readGender (Just "Male")   = return Male
+        readGender (Just "Female") = return Female
+        readGender _               = return Other
+    readGender d
 
 instance FromRow User where
   fromRow = User 
