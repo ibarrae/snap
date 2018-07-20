@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 663adf1bd1cca75c11301780b6de9e882f343cfc014d1dc4b4784dc6eafa4bdc
+-- hash: f3e53dddbbbdd64994340339b67fa9201bafd022969a03e86a493f80c724da6b
 
 name:           snap-example
 version:        1.0.3
@@ -27,18 +27,20 @@ source-repository head
 library
   exposed-modules:
       Application
-      Model.SnapUser
       Site
+      User.Types
   other-modules:
       Paths_snap_example
   hs-source-dirs:
       src
   ghc-options: -Wall -Werror
   build-depends:
-      base >=4.7 && <5
+      Decimal
+    , base >=4.7 && <5
     , bytestring
     , lens
     , mtl
+    , postgresql-simple
     , snap
     , snap-core
     , snap-server
@@ -56,10 +58,12 @@ executable snap-example-exe
       app
   ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      Decimal
+    , base >=4.7 && <5
     , bytestring
     , lens
     , mtl
+    , postgresql-simple
     , snap
     , snap-core
     , snap-example
@@ -79,11 +83,13 @@ test-suite snap-example-test
       test
   ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      Decimal
+    , base >=4.7 && <5
     , bytestring
     , hspec
     , lens
     , mtl
+    , postgresql-simple
     , snap
     , snap-core
     , snap-example

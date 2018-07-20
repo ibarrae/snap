@@ -14,5 +14,5 @@ appInit = makeSnaplet "snap" "SNAP Framework example" Nothing $ do
   addRoutes [("/", welcomePage)]
   return $ App hs p
 
-welcomePage :: (HasHeist b) => Handler b v ()
+welcomePage :: Handler App App ()
 welcomePage = render "welcome"

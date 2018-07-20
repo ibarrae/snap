@@ -1,4 +1,12 @@
 # Changelog for snap
+
+## 1.0.3
+    - Changed snaplet-persistent for snaplet-postgresql-simple.
+    - Changed SnapUser model for User data type.
+    - Created ToRow and FromRow instances for User and Gender.
+    - Added migration for gender column of snap_user table.
+    - Changed folder structure for src.
+
 ## 1.0.2
     - Created moo.cfg and dbmigrations.
     - Changed to lts-11.17 due to package compatibility

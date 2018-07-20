@@ -20,6 +20,8 @@ dependencies:
   - snap-core
   - snap-server
   - snaplet-postgresql-simple
+  - postgresql-simple
+  - Decimal
   - transformers
   - lens
   - text
