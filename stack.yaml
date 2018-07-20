@@ -4,4 +4,4 @@ packages:
 - .
 
 extra-deps:
-  - snaplet-persistent-0.6.0
+  - snaplet-postgresql-simple-1.1.0.0
