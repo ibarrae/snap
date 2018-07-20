@@ -1,5 +1,5 @@
 name:                snap-example
-version:             1.0.2
+version:             1.0.3
 github:              "kinorius123/snap"
 license:             BSD3
 author:              "Esteban Ibarra"
@@ -19,11 +19,10 @@ dependencies:
   - snap
   - snap-core
   - snap-server
-  - snaplet-persistent
-  - persistent
+  - snaplet-postgresql-simple
+  - transformers
   - lens
   - text
-  - persistent-template
   - time
 
 library:

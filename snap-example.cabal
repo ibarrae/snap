@@ -2,10 +2,10 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 5a621c580b390a4bc8c79b640cabbbd13805c604c74136119eede9da1823a1b6
+-- hash: 663adf1bd1cca75c11301780b6de9e882f343cfc014d1dc4b4784dc6eafa4bdc
 
 name:           snap-example
-version:        1.0.2
+version:        1.0.3
 description:    Please see the README on GitHub at <https://github.com/kinorius123/snap#readme>
 homepage:       https://github.com/kinorius123/snap#readme
 bug-reports:    https://github.com/kinorius123/snap/issues
@@ -27,7 +27,7 @@ source-repository head
 library
   exposed-modules:
       Application
-      Model.User
+      Model.SnapUser
       Site
   other-modules:
       Paths_snap_example
@@ -39,14 +39,13 @@ library
     , bytestring
     , lens
     , mtl
-    , persistent
-    , persistent-template
     , snap
     , snap-core
     , snap-server
-    , snaplet-persistent
+    , snaplet-postgresql-simple
     , text
     , time
+    , transformers
   default-language: Haskell2010
 
 executable snap-example-exe
@@ -61,15 +60,14 @@ executable snap-example-exe
     , bytestring
     , lens
     , mtl
-    , persistent
-    , persistent-template
     , snap
     , snap-core
     , snap-example
     , snap-server
-    , snaplet-persistent
+    , snaplet-postgresql-simple
     , text
     , time
+    , transformers
   default-language: Haskell2010
 
 test-suite snap-example-test
@@ -86,13 +84,12 @@ test-suite snap-example-test
     , hspec
     , lens
     , mtl
-    , persistent
-    , persistent-template
     , snap
     , snap-core
     , snap-example
     , snap-server
-    , snaplet-persistent
+    , snaplet-postgresql-simple
     , text
     , time
+    , transformers
   default-language: Haskell2010
