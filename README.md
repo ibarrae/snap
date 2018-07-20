@@ -7,6 +7,11 @@ Furthermore, the following links were used as a guide for installation and compi
 - http://snapframework.com/docs/quickstart
 - http://markbucciarelli.com/posts/2017-03-07_how_to_build_snap_with_stack.html
 
+## Database set up
+- Create the database `createdb snap`
+- It is necessary to run install the tool to run the migrations `stack install dbmigrations-postgresql`
+- Execute the migrations `moo-postgresql upgrade`
+
 ## Installation and compiling:
 
 Following the next steps, you should be able to compile and execute the project with a stack structure:

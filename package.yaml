@@ -1,5 +1,5 @@
-name:                snap
-version:             1.0.1
+name:                snap-example
+version:             1.0.2
 github:              "kinorius123/snap"
 license:             BSD3
 author:              "Esteban Ibarra"
@@ -13,13 +13,28 @@ extra-source-files:
 description:         Please see the README on GitHub at <https://github.com/kinorius123/snap#readme>
 
 dependencies:
-- base >= 4.7 && < 5
+  - base >= 4.7 && < 5
+  - bytestring
+  - mtl
+  - snap
+  - snap-core
+  - snap-server
+  - snaplet-persistent
+  - persistent
+  - lens
+  - text
+  - persistent-template
+  - time
 
 library:
   source-dirs: src
 
+ghc-options:
+  - -Wall
+  - -Werror
+    
 executables:
-  snap-exe:
+  snap-example-exe:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -27,14 +42,11 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
+    - snap-example
     - snap
-    - bytestring
-    - mtl
-    - snap-core
-    - snap-server
 
 tests:
-  snap-test:
+  snap-example-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
@@ -42,5 +54,5 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - snap
+    - snap-example
     - hspec
