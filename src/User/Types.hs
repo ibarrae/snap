@@ -26,11 +26,11 @@ instance ToField Gender where
   toField = toField . show
 
 instance FromField Gender where
-  fromField _ d = do
-    let readGender (Just "Male")   = return Male
-        readGender (Just "Female") = return Female
-        readGender _               = return Other
-    readGender d
+  fromField _ md = return $ 
+    case md of
+      Just "Male"   -> Male
+      Just "Female" -> Female
+      _             -> Other
 
 instance FromRow User where
   fromRow = User 
