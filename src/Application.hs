@@ -15,6 +15,8 @@ data App = App
 
 makeLenses ''App
 
+type AppHandler = Handler App App ()
+
 instance HasHeist App where
   heistLens = subSnaplet heist
 

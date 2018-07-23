@@ -2,10 +2,10 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f3e53dddbbbdd64994340339b67fa9201bafd022969a03e86a493f80c724da6b
+-- hash: b2cec7f9c38573ea963962e2a7dde18deb93adad6803cb77ebfa42589da3a111
 
 name:           snap-example
-version:        1.0.3
+version:        1.0.4
 description:    Please see the README on GitHub at <https://github.com/kinorius123/snap#readme>
 homepage:       https://github.com/kinorius123/snap#readme
 bug-reports:    https://github.com/kinorius123/snap/issues
@@ -28,6 +28,9 @@ library
   exposed-modules:
       Application
       Site
+      User.Handler
+      User.Persistence
+      User.Query
       User.Types
   other-modules:
       Paths_snap_example
@@ -38,9 +41,12 @@ library
       Decimal
     , base >=4.7 && <5
     , bytestring
+    , heist
     , lens
+    , map-syntax
     , mtl
     , postgresql-simple
+    , scientific
     , snap
     , snap-core
     , snap-server
@@ -61,9 +67,12 @@ executable snap-example-exe
       Decimal
     , base >=4.7 && <5
     , bytestring
+    , heist
     , lens
+    , map-syntax
     , mtl
     , postgresql-simple
+    , scientific
     , snap
     , snap-core
     , snap-example
@@ -86,10 +95,13 @@ test-suite snap-example-test
       Decimal
     , base >=4.7 && <5
     , bytestring
+    , heist
     , hspec
     , lens
+    , map-syntax
     , mtl
     , postgresql-simple
+    , scientific
     , snap
     , snap-core
     , snap-example
