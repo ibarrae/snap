@@ -5,6 +5,7 @@
       <th>Name</th>
       <th>Email</th>
       <th>Birthday</th>
+      <th>Income</th>
       <th/>
     <thead>
     <tbody>
@@ -13,6 +14,7 @@
           <td><name/></td>
           <td><mail/></td>
           <td><bd/></td>
+          <td><income/></td>
           <td>
             <button>Delete</button>
             <button>Update</button>

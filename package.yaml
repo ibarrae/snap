@@ -13,7 +13,7 @@ extra-source-files:
 description:         Please see the README on GitHub at <https://github.com/kinorius123/snap#readme>
 
 dependencies:
-  - base >= 4.7 && < 5
+  - base >= 4.6 && < 4.10
   - bytestring
   - mtl
   - snap
@@ -29,6 +29,8 @@ dependencies:
   - lens
   - text
   - time
+  - path-pieces
+  - load-env
 
 library:
   source-dirs: src
@@ -36,6 +38,12 @@ library:
 ghc-options:
   - -Wall
   - -Werror
+
+default-extensions:
+  - OverloadedStrings
+  - QuasiQuotes
+  - RecordWildCards
+  - TypeApplications
     
 executables:
   snap-example-exe:
@@ -60,3 +68,6 @@ tests:
     dependencies:
     - snap-example
     - hspec
+    - snap
+    - containers
+    - either-unwrap

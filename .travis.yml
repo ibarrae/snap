@@ -1,4 +1,4 @@
-sudo: true
+sudo: false
 
 language: haskell
 
@@ -7,3 +7,6 @@ ghc: "8.2.2"
 cache:
   directories:
     - $HOME/.cabal/
+
+install:
+  - cabal install --only-dependencies --enable-tests --allow-newer

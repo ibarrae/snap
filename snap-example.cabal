@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b2cec7f9c38573ea963962e2a7dde18deb93adad6803cb77ebfa42589da3a111
+-- hash: f9cbdc31f7dc28db3f3d4371b76420471c13956f084c9a05e511ebd533fb15d7
 
 name:           snap-example
 version:        1.0.4
@@ -27,24 +27,31 @@ source-repository head
 library
   exposed-modules:
       Application
+      DataBaseInfo
+      Routes
       Site
-      User.Handler
+      User.Handlers
       User.Persistence
-      User.Query
+      User.Presenters
+      User.Queries
+      User.Splices
       User.Types
   other-modules:
       Paths_snap_example
   hs-source-dirs:
       src
+  default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications
   ghc-options: -Wall -Werror
   build-depends:
       Decimal
-    , base >=4.7 && <5
+    , base >=4.6 && <4.10
     , bytestring
     , heist
     , lens
+    , load-env
     , map-syntax
     , mtl
+    , path-pieces
     , postgresql-simple
     , scientific
     , snap
@@ -62,15 +69,18 @@ executable snap-example-exe
       Paths_snap_example
   hs-source-dirs:
       app
+  default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications
   ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       Decimal
-    , base >=4.7 && <5
+    , base >=4.6 && <4.10
     , bytestring
     , heist
     , lens
+    , load-env
     , map-syntax
     , mtl
+    , path-pieces
     , postgresql-simple
     , scientific
     , snap
@@ -87,19 +97,26 @@ test-suite snap-example-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      SiteSpec
+      UserPresenterSpec
       Paths_snap_example
   hs-source-dirs:
       test
+  default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications
   ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       Decimal
-    , base >=4.7 && <5
+    , base >=4.6 && <4.10
     , bytestring
+    , containers
+    , either-unwrap
     , heist
     , hspec
     , lens
+    , load-env
     , map-syntax
     , mtl
+    , path-pieces
     , postgresql-simple
     , scientific
     , snap
