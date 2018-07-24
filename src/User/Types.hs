@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -fno-warn-orphans #-}
-{-# LANGUAGE TypeSynonymInstances #-}
 module User.Types where
 
 import Data.Time.Calendar
@@ -21,10 +19,9 @@ instance ToField Currency where
   toField = toField . unCurrency
 
 instance FromField Currency where
-  fromField _ md = return $ Currency $
-    case md of
-      Just d -> read $ B.unpack d :: Double
-      _      -> 0
+  fromField _ md = 
+    maybe (error "Could not load currency") 
+    (return . Currency . read . B.unpack) md
 
 instance PathPiece Currency where
   fromPathPiece = fmap Currency . readMaybe @Double . T.unpack

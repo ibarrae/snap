@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f9cbdc31f7dc28db3f3d4371b76420471c13956f084c9a05e511ebd533fb15d7
+-- hash: 4b26caf033ca9f20599ad092a1df1c6cc728f3fe0b9e3db41f79e38d42cfa24b
 
 name:           snap-example
 version:        1.0.4
@@ -27,7 +27,8 @@ source-repository head
 library
   exposed-modules:
       Application
-      DataBaseInfo
+      Database
+      EnvRead
       Routes
       Site
       User.Handlers
@@ -43,9 +44,9 @@ library
   default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications
   ghc-options: -Wall -Werror
   build-depends:
-      Decimal
-    , base >=4.6 && <4.10
+      base >=4.7 && <5
     , bytestring
+    , either-unwrap
     , heist
     , lens
     , load-env
@@ -53,7 +54,6 @@ library
     , mtl
     , path-pieces
     , postgresql-simple
-    , scientific
     , snap
     , snap-core
     , snap-server
@@ -72,9 +72,9 @@ executable snap-example-exe
   default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications
   ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      Decimal
-    , base >=4.6 && <4.10
+      base >=4.7 && <5
     , bytestring
+    , either-unwrap
     , heist
     , lens
     , load-env
@@ -82,7 +82,6 @@ executable snap-example-exe
     , mtl
     , path-pieces
     , postgresql-simple
-    , scientific
     , snap
     , snap-core
     , snap-example
@@ -105,8 +104,7 @@ test-suite snap-example-test
   default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications
   ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      Decimal
-    , base >=4.6 && <4.10
+      base >=4.7 && <5
     , bytestring
     , containers
     , either-unwrap
@@ -118,7 +116,6 @@ test-suite snap-example-test
     , mtl
     , path-pieces
     , postgresql-simple
-    , scientific
     , snap
     , snap-core
     , snap-example
