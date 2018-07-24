@@ -1,6 +1,9 @@
-sudo: false
+sudo: true
 
 language: haskell
+
+services:
+  - postgresql
 
 ghc: "8.2.2"
 
@@ -9,4 +12,9 @@ cache:
     - $HOME/.cabal/
 
 install:
+  - psql -c 'create database snap;' -U postgres
+  - psql -c 'CREATE TABLE snap_user (id SERIAL PRIMARY KEY, name text not null,email text not null,birth_date date not null,password text not null,genre text not null,income numeric not null);' -U postgres
   - cabal install --only-dependencies --enable-tests --allow-newer
+
+script:
+  - cabal configure --enable-tests --allow-newer && cabal build && cabal test
