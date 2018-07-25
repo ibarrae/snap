@@ -1,5 +1,5 @@
 name:                snap-example
-version:             1.0.3
+version:             1.0.4
 github:              "kinorius123/snap"
 license:             BSD3
 author:              "Esteban Ibarra"
@@ -20,12 +20,16 @@ dependencies:
   - snap-core
   - snap-server
   - snaplet-postgresql-simple
+  - heist
+  - map-syntax
   - postgresql-simple
-  - Decimal
   - transformers
   - lens
   - text
   - time
+  - path-pieces
+  - load-env
+  - either-unwrap
 
 library:
   source-dirs: src
@@ -33,6 +37,12 @@ library:
 ghc-options:
   - -Wall
   - -Werror
+
+default-extensions:
+  - OverloadedStrings
+  - QuasiQuotes
+  - RecordWildCards
+  - TypeApplications
     
 executables:
   snap-example-exe:
@@ -57,3 +67,5 @@ tests:
     dependencies:
     - snap-example
     - hspec
+    - snap
+    - containers

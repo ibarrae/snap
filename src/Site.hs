@@ -1,18 +1,14 @@
-{-# LANGUAGE OverloadedStrings #-}
 module Site where
 
 import Snap
 import Snap.Snaplet.Heist
-import Snap.Snaplet.PostgresqlSimple
-
 import Application
+import Routes
+import Database
 
-appInit :: SnapletInit App App
-appInit = makeSnaplet "snap" "SNAP Framework example" Nothing $ do
+appInit :: ConnInfo -> SnapletInit App App
+appInit c = makeSnaplet "snap" "SNAP Framework example" Nothing $ do
   hs <- nestSnaplet "heist" heist $ heistInit "templates"
-  p <- nestSnaplet "db" db pgsInit
-  addRoutes [("/", welcomePage)]
+  p <- nestSnaplet "db" db $ initDb c
+  addRoutes routes
   return $ App hs p
-
-welcomePage :: Handler App App ()
-welcomePage = render "welcome"

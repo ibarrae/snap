@@ -1,5 +1,11 @@
 # Changelog for snap
 
+## 1.0.4
+    - Added a base template.
+    - Added the User query, persistence and handler modules.
+    - Added the user list template.
+    - Changed init of db snaplet with the loading of .env values.
+
 ## 1.0.3
     - Changed snaplet-persistent for snaplet-postgresql-simple.
     - Changed SnapUser model for User data type.

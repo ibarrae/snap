@@ -1,11 +1,31 @@
-{-# OPTIONS_GHC -fno-warn-orphans #-}
-{-# LANGUAGE RecordWildCards, TypeSynonymInstances, FlexibleInstances, OverloadedStrings #-}
 module User.Types where
 
 import Data.Time.Calendar
 import Snap.Snaplet.PostgresqlSimple
 import Database.PostgreSQL.Simple.ToField
 import Database.PostgreSQL.Simple.FromField
+import qualified Data.ByteString.Char8 as B
+import Web.PathPieces
+import qualified Data.Text as T
+import Text.Read
+import Text.Printf
+
+newtype Currency 
+  = Currency 
+  { unCurrency :: Double } 
+  deriving (Show,Eq)
+
+instance ToField Currency where
+  toField = toField . unCurrency
+
+instance FromField Currency where
+  fromField _ md = 
+    maybe (error "Could not load currency") 
+    (return . Currency . read . B.unpack) md
+
+instance PathPiece Currency where
+  fromPathPiece = fmap Currency . readMaybe @Double . T.unpack
+  toPathPiece = T.pack . printf "%.2f" . unCurrency
 
 data User = User
   { userKey       :: Int
@@ -14,13 +34,13 @@ data User = User
   , userBirthDate :: Day
   , userPassword  :: String
   , userGender    :: Gender
-  , userIncome    :: Double}
+  , userIncome    :: Currency}
 
 data Gender 
   = Male
   | Female
   | Other
-  deriving (Show,Eq,Read)
+  deriving (Show,Eq)
 
 instance ToField Gender where
   toField = toField . show
@@ -51,3 +71,11 @@ instance ToRow User where
     , toField userPassword
     , toField userGender
     , toField userIncome]
+
+data UserPresenter
+  = UserPresenter
+  { upName     :: String
+  , upMail     :: String
+  , upBirthday :: String
+  , upIncome   :: String}
+  deriving (Show,Eq)

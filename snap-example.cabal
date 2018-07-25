@@ -2,10 +2,10 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f3e53dddbbbdd64994340339b67fa9201bafd022969a03e86a493f80c724da6b
+-- hash: 4b26caf033ca9f20599ad092a1df1c6cc728f3fe0b9e3db41f79e38d42cfa24b
 
 name:           snap-example
-version:        1.0.3
+version:        1.0.4
 description:    Please see the README on GitHub at <https://github.com/kinorius123/snap#readme>
 homepage:       https://github.com/kinorius123/snap#readme
 bug-reports:    https://github.com/kinorius123/snap/issues
@@ -27,19 +27,32 @@ source-repository head
 library
   exposed-modules:
       Application
+      Database
+      EnvRead
+      Routes
       Site
+      User.Handlers
+      User.Persistence
+      User.Presenters
+      User.Queries
+      User.Splices
       User.Types
   other-modules:
       Paths_snap_example
   hs-source-dirs:
       src
+  default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications
   ghc-options: -Wall -Werror
   build-depends:
-      Decimal
-    , base >=4.7 && <5
+      base >=4.7 && <5
     , bytestring
+    , either-unwrap
+    , heist
     , lens
+    , load-env
+    , map-syntax
     , mtl
+    , path-pieces
     , postgresql-simple
     , snap
     , snap-core
@@ -56,13 +69,18 @@ executable snap-example-exe
       Paths_snap_example
   hs-source-dirs:
       app
+  default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications
   ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      Decimal
-    , base >=4.7 && <5
+      base >=4.7 && <5
     , bytestring
+    , either-unwrap
+    , heist
     , lens
+    , load-env
+    , map-syntax
     , mtl
+    , path-pieces
     , postgresql-simple
     , snap
     , snap-core
@@ -78,17 +96,25 @@ test-suite snap-example-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      SiteSpec
+      UserPresenterSpec
       Paths_snap_example
   hs-source-dirs:
       test
+  default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications
   ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      Decimal
-    , base >=4.7 && <5
+      base >=4.7 && <5
     , bytestring
+    , containers
+    , either-unwrap
+    , heist
     , hspec
     , lens
+    , load-env
+    , map-syntax
     , mtl
+    , path-pieces
     , postgresql-simple
     , snap
     , snap-core
