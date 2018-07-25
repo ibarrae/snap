@@ -10,13 +10,22 @@ ghc: "8.2.2"
 cache:
   directories:
     - $HOME/.cabal/
+    - $HOME/.stack/
 
 before_install:
+  - mkdir -p ~/.local/bin
+  - export PATH=~/.local/bin:$PATH
+  - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar -xzO --wildcards '*/stack' > ~/.local/bin/stack
+  - chmod a+x ~/.local/bin/stack
+  - stack setup
+  - stack build --only-dependencies -j1
+  - stack build --copy-bins --test --no-run-tests
+  - stack build dbmigrations-postgresql --stack-yaml migrations.yaml
   - psql -c 'create database snap;' -U postgres
-  - psql -d 'snap' -c 'CREATE TABLE snap_user (id SERIAL PRIMARY KEY, name text not null,email text not null, birth_date date not null,password text not null,genre text not null,income numeric not null);' -U postgres
+  - stack exec moo-postgresql upgrade
 
 install:
-  - cabal install --only-dependencies --enable-tests --allow-newer
+  - stack install
 
 script:
-  - cabal configure --enable-tests --allow-newer && cabal build && cabal test
+  - stack test
