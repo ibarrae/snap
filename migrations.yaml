@@ -1,0 +1,7 @@
+resolver: lts-11.18
+
+extra-deps:
+  - HDBC-postgresql-2.3.2.5
+  - dbmigrations-2.0.0
+  - yaml-light-0.1.4
+  - HsSyck-0.53

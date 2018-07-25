@@ -1,6 +1,6 @@
 Description: Update gender constraints for snap-user table.
 Created: 2018-07-20 15:55:39.691093 UTC
-Depends: 
+Depends: initial
 Apply: |
   ALTER TABLE snap_user RENAME genre TO gender;
   CREATE TYPE Gender AS ENUM ('Male', 'Female', 'Other');

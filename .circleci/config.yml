@@ -1,0 +1,67 @@
+docker-postgres: &postgres
+  image: circleci/postgres:9.6-alpine-ram
+  environment:
+    POSTGRES_USER: ubuntu
+    POSTGRES_PASSWORD: ""
+    POSTGRES_DB: snap
+
+docker-stack: &haskell
+  image: fpco/stack-build:lts-11.18
+  environment:
+    HOST: localhost
+    USER: ubuntu
+    PORT: 5432
+    PASS: ""
+    DB: snap
+    PGHOST: localhost
+    PGUSER: ubuntu
+    PGPASS: ""
+    PGDATABASE: snap
+
+version: 2
+jobs:
+  project:
+    docker:
+      - <<: *haskell
+      - <<: *postgres
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-stack-snap-{{ .Branch }}-{{ checksum "stack.yaml" }}
+            - v1-stack-snap-{{ .Branch }}
+            - v1-stack-snap  
+      - run: stack setup
+      - save_cache:
+          key: v1-stack-snap-{{ .Branch }}-{{ checksum "stack.yaml" }}
+          paths:
+            - ~/.stack    
+      - restore_cache:
+          keys:
+            - v1-stack-deps-{{ .Branch }}-{{ checksum "package.yaml" }}
+            - v1-stack-deps-{{ .Branch }}
+            - v1-stack-deps
+      - run: stack build --only-dependencies -j1
+      - run: stack build dbmigrations-postgresql --stack-yaml migrations.yaml
+      - save_cache:
+          key: v1-stack-deps-{{ .Branch }}-{{ checksum "package.yaml" }}
+          paths:
+            - ~/.stack
+      - restore_cache:
+          keys:
+            - v1-stack-app-{{ .Branch }}-{{ checksum "package.yaml" }}
+      - run: stack build --copy-bins --test --no-run-tests
+      - save_cache:
+          key: v1-stack-app-{{ .Branch }}-{{ checksum "package.yaml" }}
+          paths:
+            - ~/.stack
+            - .stack-work
+      - run: stack exec moo-postgresql upgrade
+      - run: stack install
+      - run: stack test
+
+workflows:
+  version: 2
+  build-test:
+    jobs:
+      - project
