@@ -1,5 +1,5 @@
 name:                snap-example
-version:             1.0.4
+version:             1.0.5
 github:              "kinorius123/snap"
 license:             BSD3
 author:              "Esteban Ibarra"
@@ -30,6 +30,10 @@ dependencies:
   - path-pieces
   - load-env
   - either-unwrap
+  - digestive-functors
+  - digestive-functors-snap
+  - digestive-functors-heist
+  - email-validate
 
 library:
   source-dirs: src
@@ -43,6 +47,7 @@ default-extensions:
   - QuasiQuotes
   - RecordWildCards
   - TypeApplications
+  - FlexibleInstances
     
 executables:
   snap-example-exe:

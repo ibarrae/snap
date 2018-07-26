@@ -5,5 +5,8 @@ packages:
 
 extra-deps:
   - snaplet-postgresql-simple-1.1.0.0
+  - digestive-functors-0.8.4.0
+  - digestive-functors-snap-0.7.0.1
+  - digestive-functors-heist-0.8.8.1
   
 allow-newer: true

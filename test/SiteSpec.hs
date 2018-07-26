@@ -12,10 +12,16 @@ import EnvRead
 
 spec :: Spec
 spec =
-  describe "requests" $
+  describe "requests" $ do
     context "when requesting /users" $
       it "should respond with status 200" $ do
         ci <- loadConnInfoFromEnv
         er <- T.runHandler Nothing (get "/users" M.empty) handleUsers $ appInit ci
+        let r = U.fromRight er
+        rspStatus r `shouldBe` 200
+    context "when requesting /users/add" $
+      it "should respond with status 200" $ do
+        ci <- loadConnInfoFromEnv
+        er <- T.runHandler Nothing (get "/users/add" M.empty) handleUsers $ appInit ci
         let r = U.fromRight er
         rspStatus r `shouldBe` 200

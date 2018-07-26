@@ -1,29 +1,23 @@
-docker-postgres: &postgres
-  image: circleci/postgres:9.6-alpine-ram
-  environment:
-    POSTGRES_USER: ubuntu
-    POSTGRES_PASSWORD: ""
-    POSTGRES_DB: snap
-
-docker-stack: &haskell
-  image: fpco/stack-build:lts-11.18
-  environment:
-    HOST: localhost
-    USER: ubuntu
-    PORT: 5432
-    PASS: ""
-    DB: snap
-    PGHOST: localhost
-    PGUSER: ubuntu
-    PGPASS: ""
-    PGDATABASE: snap
-
 version: 2
 jobs:
   project:
     docker:
-      - <<: *haskell
-      - <<: *postgres
+      - image: fpco/stack-build:lts-11.18
+        environment:
+          HOST: localhost
+          USER: ubuntu
+          PORT: 5432
+          PASS: ""
+          DB: snap
+          PGHOST: localhost
+          PGUSER: ubuntu
+          PGPASS: ""
+          PGDATABASE: snap
+      - image: circleci/postgres:9.6-alpine-ram
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: snap
     steps:
       - checkout
       - restore_cache:

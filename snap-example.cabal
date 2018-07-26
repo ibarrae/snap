@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 4b26caf033ca9f20599ad092a1df1c6cc728f3fe0b9e3db41f79e38d42cfa24b
+-- hash: e559478f65fd1eb966290da49e28a19078d7d8e31c8f8f21d0184ea14f6a2e59
 
 name:           snap-example
 version:        1.0.4
@@ -29,24 +29,32 @@ library
       Application
       Database
       EnvRead
+      IoInteractions
       Routes
       Site
+      User.ErrorMessages
+      User.Forms
       User.Handlers
       User.Persistence
       User.Presenters
       User.Queries
       User.Splices
       User.Types
+      User.Validations
   other-modules:
       Paths_snap_example
   hs-source-dirs:
       src
-  default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications
+  default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications FlexibleInstances
   ghc-options: -Wall -Werror
   build-depends:
       base >=4.7 && <5
     , bytestring
+    , digestive-functors
+    , digestive-functors-heist
+    , digestive-functors-snap
     , either-unwrap
+    , email-validate
     , heist
     , lens
     , load-env
@@ -69,12 +77,16 @@ executable snap-example-exe
       Paths_snap_example
   hs-source-dirs:
       app
-  default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications
+  default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications FlexibleInstances
   ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
     , bytestring
+    , digestive-functors
+    , digestive-functors-heist
+    , digestive-functors-snap
     , either-unwrap
+    , email-validate
     , heist
     , lens
     , load-env
@@ -98,16 +110,21 @@ test-suite snap-example-test
   other-modules:
       SiteSpec
       UserPresenterSpec
+      UserValidationsSpec
       Paths_snap_example
   hs-source-dirs:
       test
-  default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications
+  default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications FlexibleInstances
   ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
     , bytestring
     , containers
+    , digestive-functors
+    , digestive-functors-heist
+    , digestive-functors-snap
     , either-unwrap
+    , email-validate
     , heist
     , hspec
     , lens

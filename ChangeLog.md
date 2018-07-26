@@ -1,5 +1,13 @@
 # Changelog for snap
 
+## 1.0.5
+    - Changed names of migration files and EnvRead module.
+    - Added persistence for inserting new user into DB.
+    - Added validations for the user form using digestive-functors
+    - Added user form templates and module.
+    - Added handler and e2e test for new user.
+    - Fixed circle CI config.
+
 ## 1.0.4
     - Added a base template.
     - Added the User query, persistence and handler modules.
