@@ -9,24 +9,20 @@
   <dfInputText ref="email" />
   <br>
 
-  <dfLabel ref="bd">Birthday: </dfLabel>
-  <dfInputText ref="bd" />
+  <dfLabel ref="birthday">Birthday: </dfLabel>
+  <dfInputText ref="birthday" type="date" />
   <br>
 
-  <dfLabel ref="password">Password: </dfLabel>
-  <dfInputPassword ref="password" />
-  <br>
-
-  <label for="user_form.passConf">Password confirmation: </label>
-  <input type="password" id="user_form.passConf" name="user_form.passConf"/>
-  <br>
+  <dfSubView ref="pass_conf">
+      <apply template="password_form" />
+  </dfSubView>
 
   <dfLabel ref="gender">Gender: </dfLabel>
   <dfInputSelect ref="gender" />
   <br>
 
   <dfLabel ref="income">Income: </dfLabel>
-  <dfInputText ref="income" />
+  <dfInputText ref="income" type="number" />
   <br>
 
   <dfInputSubmit value="Save" />

@@ -24,6 +24,4 @@ fromEnv tag = do
   where msg t = "Could not load var: " ++ t
 
 getSystemDay :: IO Day
-getSystemDay = do
-  utc <- getCurrentTime
-  return $ utctDay utc
+getSystemDay = utctDay <$> getCurrentTime

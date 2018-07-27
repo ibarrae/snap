@@ -2,10 +2,10 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: e559478f65fd1eb966290da49e28a19078d7d8e31c8f8f21d0184ea14f6a2e59
+-- hash: c7f0e45cb6b400590c94547ad8f80bd079187895126043ce8f84f9a6b2af8a6a
 
 name:           snap-example
-version:        1.0.4
+version:        1.0.5
 description:    Please see the README on GitHub at <https://github.com/kinorius123/snap#readme>
 homepage:       https://github.com/kinorius123/snap#readme
 bug-reports:    https://github.com/kinorius123/snap/issues

@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -funbox-strict-fields #-}
 module User.Types where
 
 import Data.Time.Calendar
@@ -40,7 +41,7 @@ data Gender
   = Male
   | Female
   | Other
-  deriving (Show,Eq)
+  deriving (Show,Eq,Enum)
 
 instance ToField Gender where
   toField = toField . show
@@ -97,3 +98,8 @@ instance ToRow UserForm where
     , toField ufPassword
     , toField ufGender
     , toField ufIncome ]
+
+data PasswordForm
+  = PasswordForm
+  { pfPassword     :: !T.Text
+  , pfConfirmation :: !T.Text }

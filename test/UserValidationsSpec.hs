@@ -17,6 +17,11 @@ instance Eq (Result Text Currency) where
   (Error e1) == (Error e2) = e1 == e2
   _ == _ = False
 
+instance Eq (Result Text Text) where
+  (Success t1) == (Success t2) = t1 == t2
+  (Error e1) == (Error e2) = e1 == e2
+  _ == _ = False
+
 spec :: Spec 
 spec = do
   describe "validName" $ do
@@ -39,12 +44,21 @@ spec = do
   describe "validPassword" $ do
     context "when evaluating a valid password" $
       it "returns true" $
-        validPassword (Just "esteban") "esteban" `shouldBe` True
+        validPassword "esteban" `shouldBe` True
     context "when evaluating an invalid password" $
       it "returns false" $ do
-        validPassword Nothing "" `shouldBe` False
-        validPassword Nothing "esteban" `shouldBe` False
-        validPassword (Just "holaMundo") "esteban" `shouldBe` False
+        validPassword "" `shouldBe` False
+        validPassword "123456789012345678901" `shouldBe` False
+        validPassword "abc" `shouldBe` False
+  describe "matchesConfirmation" $ do
+    context "when evaluating a password that matches its confirmation" $ 
+      it "returns Success 'password'" $
+        matchesConfirmation (PasswordForm "password" "password")
+        `shouldBe` Success "password"
+    context "when evaluationg a password that does not match its confirmation" $
+      it "returns Error 'Password does not match confirmation.'" $
+        matchesConfirmation (PasswordForm "123456" "abcdef")
+        `shouldBe` Error doesNotMatchConfirmation
   describe "validBirthday" $ do
     context "when evaluating a valid birthday" $
       it "returns true" $ do

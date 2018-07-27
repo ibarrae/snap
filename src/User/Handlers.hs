@@ -19,9 +19,8 @@ handleUsers = do
 
 handleUserAdd :: AppHandler
 handleUserAdd = do
-  mpc <- getPostParam "user_form.passConf"
   sd <- liftIO getSystemDay
-  (view, muf) <- runForm "user_form" $ userForm mpc sd
+  (view, muf) <- runForm "user_form" $ userForm sd
   case muf of
     Just uf -> insertUser uf >> redirect "/users"
     Nothing -> heistLocal (bindDigestiveSplices view) $ render "users_add" 

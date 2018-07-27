@@ -2,7 +2,6 @@ module User.Validations where
 
 import Data.Text as T
 import Data.Text.Encoding as TE
-import Data.ByteString as B
 import Data.Time.Calendar
 import Text.Read
 import Data.Bool
@@ -14,10 +13,13 @@ import User.ErrorMessages
 validName :: T.Text -> Bool
 validName = validateLength 2 20
 
-validPassword :: Maybe ByteString -> T.Text -> Bool
-validPassword Nothing _ = False
-validPassword (Just b) t =
-  validateLength 6 20 t && TE.decodeUtf8 b == t
+validPassword :: T.Text -> Bool
+validPassword = validateLength 6 20
+
+matchesConfirmation :: PasswordForm -> Result Text Text
+matchesConfirmation PasswordForm{..} =
+  bool (Error doesNotMatchConfirmation) (Success pfPassword) 
+  (pfPassword == pfConfirmation)
 
 validateLength :: Int -> Int -> T.Text -> Bool
 validateLength minL maxL t =
