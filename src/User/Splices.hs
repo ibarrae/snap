@@ -18,5 +18,6 @@ userPresenterSplice UserPresenter{..} = do
   generateSplice "mail" upMail
   generateSplice "bd" upBirthday
   generateSplice "income" upIncome
+  generateSplice "id" upId
   where 
     generateSplice b v = b ## textSplice $ pack v

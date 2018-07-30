@@ -1,4 +1,5 @@
 <apply template="base">
+  <script src="/static/api.js"/>
   <h1> Users </h1>
   <br/>
   <a href ="/users/add">New User</a>
@@ -19,7 +20,7 @@
           <td><bd/></td>
           <td><income/></td>
           <td>
-            <button>Delete</button>
+            <button onclick="deleteUser(${id})">Delete</button>
             <button>Update</button>
           </td>
         </tr>

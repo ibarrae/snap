@@ -15,4 +15,4 @@ spec =
             (ModifiedJulianDay 1) "123" Male (Currency 1000))
             `shouldBe`
           UserPresenter "Esteban" "foo@foo.com" 
-            "1858-11-18" "1000.00"
+            "1858-11-18" "1000.00" "1"

@@ -23,6 +23,7 @@ before_install:
   - stack build dbmigrations-postgresql --stack-yaml migrations.yaml
   - psql -c 'create database snap;' -U postgres
   - stack exec moo-postgresql upgrade
+  
 
 install:
   - stack install

@@ -78,7 +78,8 @@ data UserPresenter
   { upName     :: !String
   , upMail     :: !String
   , upBirthday :: !String
-  , upIncome   :: !String}
+  , upIncome   :: !String
+  , upId       :: !String}
   deriving (Show,Eq)
 
 data UserForm

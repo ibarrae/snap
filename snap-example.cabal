@@ -2,10 +2,10 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c7f0e45cb6b400590c94547ad8f80bd079187895126043ce8f84f9a6b2af8a6a
+-- hash: 908cb6b71c9871d5ef7a55febb823b0c357cfdcb09d0178810b156e3b01596c9
 
 name:           snap-example
-version:        1.0.5
+version:        1.0.6
 description:    Please see the README on GitHub at <https://github.com/kinorius123/snap#readme>
 homepage:       https://github.com/kinorius123/snap#readme
 bug-reports:    https://github.com/kinorius123/snap/issues
@@ -28,7 +28,6 @@ library
   exposed-modules:
       Application
       Database
-      EnvRead
       IoInteractions
       Routes
       Site
@@ -110,6 +109,7 @@ test-suite snap-example-test
   other-modules:
       SiteSpec
       UserPresenterSpec
+      UserQueriesSpec
       UserValidationsSpec
       Paths_snap_example
   hs-source-dirs:
@@ -127,12 +127,15 @@ test-suite snap-example-test
     , email-validate
     , heist
     , hspec
+    , hspec-pg-transact
     , lens
     , load-env
     , map-syntax
     , mtl
     , path-pieces
+    , pg-transact
     , postgresql-simple
+    , postgresql-simple-queue
     , snap
     , snap-core
     , snap-example

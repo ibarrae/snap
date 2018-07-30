@@ -18,3 +18,10 @@ insertUserQuery =
     VALUES 
     (?, ?, ?, ?, ?, ?)
   |]
+
+deleteUserQuery :: Query
+deleteUserQuery =
+  [sql|
+    DELETE FROM snap_user 
+    WHERE id = ?
+  |]

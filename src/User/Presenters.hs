@@ -8,4 +8,4 @@ toUserPresenter :: User -> UserPresenter
 toUserPresenter User{..} = 
   let bd = show userBirthDate
       income = unpack $ toPathPiece userIncome
-  in UserPresenter userName userEmail bd income
+  in UserPresenter userName userEmail bd income (show userKey)
