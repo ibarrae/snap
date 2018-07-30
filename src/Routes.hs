@@ -7,7 +7,8 @@ import User.Handlers
 
 routes :: [(ByteString,AppHandler)]
 routes = [ ("/", welcomePage)
-         , ("/users", handleUsers)]
+         , ("/users", handleUsers)
+         , ("/users/add", handleUserAdd)]
 
 welcomePage :: AppHandler
 welcomePage = render "welcome"

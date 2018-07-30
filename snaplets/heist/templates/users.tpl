@@ -1,5 +1,8 @@
 <apply template="base">
   <h1> Users </h1>
+  <br/>
+  <a href ="/users/add">New User</a>
+  <br/>
   <table>
     <thead>
       <th>Name</th>

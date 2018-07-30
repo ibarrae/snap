@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -funbox-strict-fields #-}
 module User.Types where
 
 import Data.Time.Calendar
@@ -28,19 +29,19 @@ instance PathPiece Currency where
   toPathPiece = T.pack . printf "%.2f" . unCurrency
 
 data User = User
-  { userKey       :: Int
-  , userName      :: String
-  , userEmail     :: String
-  , userBirthDate :: Day
-  , userPassword  :: String
-  , userGender    :: Gender
-  , userIncome    :: Currency}
+  { userKey       :: !Int
+  , userName      :: !String
+  , userEmail     :: !String
+  , userBirthDate :: !Day
+  , userPassword  :: !String
+  , userGender    :: !Gender
+  , userIncome    :: !Currency}
 
 data Gender 
   = Male
   | Female
   | Other
-  deriving (Show,Eq)
+  deriving (Show,Eq,Enum)
 
 instance ToField Gender where
   toField = toField . show
@@ -74,8 +75,31 @@ instance ToRow User where
 
 data UserPresenter
   = UserPresenter
-  { upName     :: String
-  , upMail     :: String
-  , upBirthday :: String
-  , upIncome   :: String}
+  { upName     :: !String
+  , upMail     :: !String
+  , upBirthday :: !String
+  , upIncome   :: !String}
   deriving (Show,Eq)
+
+data UserForm
+  = UserForm
+  { ufName     :: !T.Text
+  , ufMail     :: !T.Text
+  , ufBirthday :: !Day
+  , ufPassword :: !T.Text
+  , ufGender   :: !Gender
+  , ufIncome   :: !Currency }
+
+instance ToRow UserForm where
+  toRow UserForm{..} = 
+    [ toField ufName
+    , toField ufMail
+    , toField ufBirthday
+    , toField ufPassword
+    , toField ufGender
+    , toField ufIncome ]
+
+data PasswordForm
+  = PasswordForm
+  { pfPassword     :: !T.Text
+  , pfConfirmation :: !T.Text }

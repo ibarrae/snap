@@ -9,3 +9,12 @@ allUsersQuery =
     SELECT *
     FROM snap_user 
   |]
+
+insertUserQuery :: Query
+insertUserQuery =
+  [sql|
+    INSERT INTO snap_user
+    (name, email, birth_date, password, gender, income)
+    VALUES 
+    (?, ?, ?, ?, ?, ?)
+  |]
