@@ -23,6 +23,7 @@ jobs:
       - run: sudo apt-get install -y postgresql-9.5
       - run: echo 'export PATH=$PATH:/usr/lib/postgresql/9.5/bin/' >> ~/.bashrc
       - run: source ~/.bashrc
+      - run: sudo service postgresql start
       - checkout
       - restore_cache:
           keys:
