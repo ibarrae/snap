@@ -20,8 +20,8 @@ jobs:
           POSTGRES_DB: snap
     steps:
       - run: sudo apt-get update && apt-get install -y postgresql-9.5
+      - run: export PATH=/usr/lib/postgresql/9.5/bin/:$PATH
       - checkout
-      - run: echo '/usr/lib/postgresql/9.5/bin/:$PATH' >> $BASH_ENV
       - restore_cache:
           keys:
             - v1-stack-snap-{{ .Branch }}-{{ checksum "stack.yaml" }}
