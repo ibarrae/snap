@@ -20,8 +20,7 @@ jobs:
           POSTGRES_DB: snap
     steps:
       - checkout
-      - run: echo "export PATH=$PATH:/usr/lib/postgresql/9.6/bin/" >> $BASH_ENV
-      - run: source ~/.bashrc
+      - run: export PATH=$PATH:/usr/lib/postgresql/9.6/bin/
       - restore_cache:
           keys:
             - v1-stack-snap-{{ .Branch }}-{{ checksum "stack.yaml" }}
