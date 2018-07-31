@@ -18,9 +18,9 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: ""
           POSTGRES_DB: snap
-          PATH: /usr/lib/postgresql/9.6/bin/:$PATH
     steps:
       - checkout
+      - run: echo 'export PATH=/usr/lib/postgresql/9.6/bin/:$PATH' >> ~/.bashrc
       - run: echo $PATH
       - restore_cache:
           keys:
