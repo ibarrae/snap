@@ -1,5 +1,5 @@
 <dfLabel ref="password">Password: </dfLabel>
-<dfInputPassword ref="password" />
+<inputPassword/>
 <br>
 
 <dfLabel ref="passwordConfirmation">Password confirmation: </dfLabel>

@@ -2,15 +2,15 @@
   <dfChildErrorList />
 
   <dfLabel ref="name">Name: </dfLabel>
-  <dfInputText ref="name" />
+  <inputName/>
   <br>
 
   <dfLabel ref="email">E-mail: </dfLabel>
-  <dfInputText ref="email" />
+  <inputEmail/>
   <br>
 
   <dfLabel ref="birthday">Birthday: </dfLabel>
-  <dfInputText ref="birthday" type="date" />
+  <inputBirthday/>
   <br>
 
   <dfSubView ref="pass_conf">
@@ -18,11 +18,11 @@
   </dfSubView>
 
   <dfLabel ref="gender">Gender: </dfLabel>
-  <dfInputSelect ref="gender" />
+  <inputGender/>
   <br>
 
   <dfLabel ref="income">Income: </dfLabel>
-  <dfInputText ref="income" type="number" />
+  <inputIncome/>
   <br>
 
   <dfInputSubmit value="Save" />

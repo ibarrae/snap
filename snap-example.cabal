@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c7f0e45cb6b400590c94547ad8f80bd079187895126043ce8f84f9a6b2af8a6a
+-- hash: c65fee89b50a3ddeb00865f1acbd8aef47f8653bf50937fe23067e90496dc489
 
 name:           snap-example
 version:        1.0.5
@@ -48,7 +48,8 @@ library
   default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications FlexibleInstances
   ghc-options: -Wall -Werror
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , base >=4.7 && <5
     , bytestring
     , digestive-functors
     , digestive-functors-heist
@@ -80,7 +81,8 @@ executable snap-example-exe
   default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications FlexibleInstances
   ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , base >=4.7 && <5
     , bytestring
     , digestive-functors
     , digestive-functors-heist
@@ -109,6 +111,7 @@ test-suite snap-example-test
   main-is: Spec.hs
   other-modules:
       SiteSpec
+      UserJsonSpec
       UserPresenterSpec
       UserValidationsSpec
       Paths_snap_example
@@ -117,7 +120,8 @@ test-suite snap-example-test
   default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications FlexibleInstances
   ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , base >=4.7 && <5
     , bytestring
     , containers
     , digestive-functors

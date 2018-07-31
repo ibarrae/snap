@@ -25,3 +25,9 @@ spec =
         er <- T.runHandler Nothing (get "/users/add" M.empty) handleUsers $ appInit ci
         let r = U.fromRight er
         rspStatus r `shouldBe` 200
+    context "when requesting /users/edit/:id" $
+      it "should respond with status 200" $ do
+        ci <- loadConnInfoFromEnv
+        er <- T.runHandler Nothing (get "/users/edit/id" $ M.fromList[("id", ["0"])]) handleUsers $ appInit ci
+        let r = U.fromRight er
+        rspStatus r `shouldBe` 200

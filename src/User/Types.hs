@@ -1,20 +1,22 @@
 {-# OPTIONS_GHC -funbox-strict-fields #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 module User.Types where
 
 import Data.Time.Calendar
 import Snap.Snaplet.PostgresqlSimple
+import Data.Aeson
 import Database.PostgreSQL.Simple.ToField
 import Database.PostgreSQL.Simple.FromField
 import qualified Data.ByteString.Char8 as B
 import Web.PathPieces
 import qualified Data.Text as T
-import Text.Read
+import Text.Read hiding(String)
 import Text.Printf
 
 newtype Currency 
   = Currency 
   { unCurrency :: Double } 
-  deriving (Show,Eq)
+  deriving (Show,Eq,FromJSON,ToJSON)
 
 instance ToField Currency where
   toField = toField . unCurrency
@@ -36,6 +38,7 @@ data User = User
   , userPassword  :: !String
   , userGender    :: !Gender
   , userIncome    :: !Currency}
+  deriving(Show,Eq)
 
 data Gender 
   = Male
@@ -73,12 +76,44 @@ instance ToRow User where
     , toField userGender
     , toField userIncome]
 
+instance FromJSON Gender where
+  parseJSON = withText "gender" $ \s ->
+    case s of
+      "Male"   -> return Male
+      "Female" -> return Female
+      _        -> return Other
+
+instance ToJSON Gender where
+  toJSON = String . T.pack . show
+
+instance FromJSON User where
+  parseJSON = withObject "user" $ \v -> User
+    <$> v .: "key"
+    <*> v .: "name"
+    <*> v .: "email"
+    <*> v .: "birthday"
+    <*> v .: "password"
+    <*> v .: "gender"
+    <*> v .: "income"
+
+instance ToJSON User where
+  toJSON User{..} =
+    object 
+    [ "key" .= userKey
+    , "name" .= userName
+    , "email" .= userEmail
+    , "birthday" .= userBirthDate
+    , "password" .= userPassword
+    , "gender" .= userGender
+    , "income" .= userIncome]
+
 data UserPresenter
   = UserPresenter
   { upName     :: !String
   , upMail     :: !String
   , upBirthday :: !String
-  , upIncome   :: !String}
+  , upIncome   :: !String
+  , upId       :: !String}
   deriving (Show,Eq)
 
 data UserForm
@@ -103,3 +138,4 @@ data PasswordForm
   = PasswordForm
   { pfPassword     :: !T.Text
   , pfConfirmation :: !T.Text }
+
