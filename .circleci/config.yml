@@ -20,7 +20,7 @@ jobs:
           POSTGRES_DB: snap
     steps:
       - checkout
-      - run: export PATH=$PATH:/usr/lib/postgresql/9.6/bin/
+      - run: export PATH=/usr/lib/postgresql/9.6/bin/:$PATH
       - run: find / -name initdb
       - restore_cache:
           keys:
