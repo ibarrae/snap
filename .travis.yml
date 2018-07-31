@@ -31,4 +31,4 @@ install:
   - stack install
 
 script:
-  - stack test --verbose
+  - travis_wait stack --no-terminal --skip-ghc-check test
