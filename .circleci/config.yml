@@ -19,7 +19,7 @@ jobs:
           POSTGRES_PASSWORD: ""
           POSTGRES_DB: snap
     steps:
-      - run: apt-get update && apt-get install -y postgresql-client
+      - run: apt-get update && apt-get install postgresql-9.6
       - checkout
       - run: echo '/usr/lib/postgresql/9.6/bin/:$PATH' >> $BASH_ENV
       - restore_cache:
