@@ -13,6 +13,7 @@ cache:
     - $HOME/.stack/
 
 before_install:
+  - find / -name initdb
   - export PATH=${PATH}:/usr/lib/postgresql/9.2/bin/
   - mkdir -p ~/.local/bin
   - export PATH=~/.local/bin:$PATH

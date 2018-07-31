@@ -21,6 +21,7 @@ jobs:
     steps:
       - checkout
       - run: export PATH=$PATH:/usr/lib/postgresql/9.6/bin/
+      - run: find / -name initdb
       - restore_cache:
           keys:
             - v1-stack-snap-{{ .Branch }}-{{ checksum "stack.yaml" }}
