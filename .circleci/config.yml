@@ -19,7 +19,7 @@ jobs:
           POSTGRES_PASSWORD: ""
           POSTGRES_DB: snap
     steps:
-      - run: apt-get update && apt-get install postgresql-9.5
+      - run: sudo apt-get update && apt-get install -y postgresql-9.5
       - checkout
       - run: echo '/usr/lib/postgresql/9.5/bin/:$PATH' >> $BASH_ENV
       - restore_cache:
