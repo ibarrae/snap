@@ -51,6 +51,7 @@ jobs:
             - ~/.stack
             - .stack-work
       - run: stack exec moo-postgresql upgrade
+      - run: stack install hspec-discover
       - run: stack install
       - run: stack test
 

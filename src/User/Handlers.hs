@@ -25,17 +25,18 @@ handleUserAdd = do
   (view, muf) <- runForm "user_form" $ userForm sd
   case muf of
     Just uf -> do
-      r <- insertUser uf
-      bool (writeBS "Something went wrong while adding the user.") 
-        (redirect "/users") (r>0)
+      numInsertedUsers <- insertUser uf
+      bool (logError "Something went wrong while adding the user.") 
+        (redirect "/users") (numInsertedUsers>0)
     Nothing -> heistLocal (bindDigestiveSplices view) $ render "users_add" 
 
 handleUserDelete :: AppHandler
 handleUserDelete = do
-  key <- getParam "id"
-  r <- deleteUser 
+  mkey <- getParam "id"
+  numDeletedUsers <- deleteUser 
         (maybe 
-          (error "Could not parse id parameter") 
-          (\bs -> read $ BS.unpack bs :: Int) key)
-  bool (writeBS "Something went wrong while deleting the user.") 
-    (writeBS "Correctly deleted") (r>0)
+          (error "Could not parse id parameter")
+          (read . BS.unpack) 
+          mkey)
+  bool (logError "Something went wrong while deleting the user.") 
+    (writeBS "Correctly deleted") (numDeletedUsers>0)

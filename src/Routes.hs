@@ -8,7 +8,7 @@ import Application
 import User.Handlers
 
 routes :: [(ByteString,AppHandler)]
-routes = [ ("/users", handleUsers)
+routes = [ ("/users", method GET handleUsers)
          , ("/users/add", handleUserAdd)
          , ("/users/delete/:id", method DELETE handleUserDelete)
          , ("static", serveDirectory "static")]
