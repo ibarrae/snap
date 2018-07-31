@@ -74,6 +74,3 @@ tests:
     - hspec
     - snap
     - containers
-    - hspec-pg-transact
-    - pg-transact
-    - postgresql-simple-queue

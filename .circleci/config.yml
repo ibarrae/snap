@@ -19,11 +19,6 @@ jobs:
           POSTGRES_PASSWORD: ""
           POSTGRES_DB: snap
     steps:
-      - run: sudo apt-get update 
-      - run: sudo apt-get install -y postgresql-9.5
-      - run: echo 'export PATH=$PATH:/usr/lib/postgresql/9.5/bin/' >> ~/.bashrc
-      - run: source ~/.bashrc
-      - run: sudo service postgresql start
       - checkout
       - restore_cache:
           keys:
@@ -40,7 +35,6 @@ jobs:
             - v1-stack-deps-{{ .Branch }}-{{ checksum "package.yaml" }}
             - v1-stack-deps-{{ .Branch }}
             - v1-stack-deps
-      - run: stack install hspec-discover
       - run: stack build --only-dependencies -j1
       - run: stack build dbmigrations-postgresql --stack-yaml migrations.yaml
       - save_cache:

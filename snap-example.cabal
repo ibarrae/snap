@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 908cb6b71c9871d5ef7a55febb823b0c357cfdcb09d0178810b156e3b01596c9
+-- hash: 31e8263117747f972eb11b73c24a2a62537365fa1b2b7a69d8438f65f527fc25
 
 name:           snap-example
 version:        1.0.6
@@ -109,7 +109,6 @@ test-suite snap-example-test
   other-modules:
       SiteSpec
       UserPresenterSpec
-      UserQueriesSpec
       UserValidationsSpec
       Paths_snap_example
   hs-source-dirs:
@@ -127,15 +126,12 @@ test-suite snap-example-test
     , email-validate
     , heist
     , hspec
-    , hspec-pg-transact
     , lens
     , load-env
     , map-syntax
     , mtl
     , path-pieces
-    , pg-transact
     , postgresql-simple
-    , postgresql-simple-queue
     , snap
     , snap-core
     , snap-example
