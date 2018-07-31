@@ -13,8 +13,7 @@ cache:
     - $HOME/.stack/
 
 before_install:
-  - export PATH=/usr/lib/postgresql/9.2/bin/:${PATH}
-  - echo $PATH
+  - export PATH=/usr/lib/postgresql/9.2/bin/:$PATH
   - mkdir -p ~/.local/bin
   - export PATH=~/.local/bin:$PATH
   - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar -xzO --wildcards '*/stack' > ~/.local/bin/stack
@@ -32,4 +31,4 @@ install:
   - stack install
 
 script:
-  - stack test
+  - stack test --verbose
