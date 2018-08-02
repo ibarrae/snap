@@ -47,14 +47,12 @@ handleUserEdit = do
   where 
     getUserKeyFromQueryString = do
       mId <- getParam "id"
+      let badRequest = finishResponse 400 "Parameter 'id' was not found."
       maybe badRequest (return . read . unpack) mId
-      where
-        badRequest = finishResponse 400 "Parameter 'id' was not found."
     getUserFromDatabase key = do
-      recoveredUsers <- selectUserById key
-      maybe userNotFound return (S.headMay recoveredUsers)
-      where 
-        userNotFound = finishResponse 404 "User was not found."
+      mUser <- S.headMay <$> selectUserById key
+      let userNotFound = finishResponse 404 "User was not found."
+      maybe userNotFound return mUser
     renderSuccess key uf = 
       renderPage (userSplice (fromUserForm uf key)) "users_edit_successful"
     handleForm u v =
@@ -79,8 +77,8 @@ handleUserPut = do
               = finishResponse 400 "Malformed request body"
     update u = do 
       updatedUserCount <- updateUser u
-      bool (writeBS "Did not update any user.")
-        (writeBS "User updated successfully.")
+      writeBS $ bool "Did not update any user."
+        "User updated successfully."
         (updatedUserCount>0)
 
 finishResponse :: Int -> ByteString -> Handler App App a
