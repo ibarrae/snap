@@ -8,10 +8,10 @@ import Application
 import User.Handlers
 
 routes :: [(ByteString,AppHandler)]
-routes = [ ("/",               welcomePage)
+routes = [ ("/",               method GET welcomePage)
          , ("/users",          method GET handleUsers)
-         , ("/users/add",      handleUserAdd)
-         , ("/users/edit/:id", handleUserEdit)
+         , ("/users/add",      methods [GET, POST] handleUserAdd)
+         , ("/users/edit/:id", methods [GET, POST] handleUserEdit)
          , ("/users/put",      method PUT handleUserPut)
          , ("static",          serveDirectory "static")]
 

@@ -14,30 +14,31 @@ description:         Please see the README on GitHub at <https://github.com/kino
 
 dependencies:
   - base >= 4.7 && < 5
-  - bytestring
-  - mtl
-  - snap
-  - snap-core
-  - snap-server
-  - snaplet-postgresql-simple
-  - heist
-  - map-syntax
-  - postgresql-simple
-  - transformers
-  - lens
-  - text
-  - time
-  - path-pieces
-  - load-env
-  - either-unwrap
-  - digestive-functors
-  - digestive-functors-snap
-  - digestive-functors-heist
-  - email-validate
-  - aeson
 
 library:
   source-dirs: src
+  dependencies:
+    - bytestring
+    - mtl
+    - snap
+    - snap-core
+    - snap-server
+    - snaplet-postgresql-simple
+    - heist
+    - map-syntax
+    - postgresql-simple
+    - transformers
+    - lens
+    - text
+    - time
+    - path-pieces
+    - load-env
+    - digestive-functors
+    - digestive-functors-snap
+    - digestive-functors-heist
+    - email-validate
+    - aeson
+    - safe
 
 ghc-options:
   - -Wall
@@ -74,4 +75,11 @@ tests:
     - snap-example
     - hspec
     - snap
+    - snap-core
     - containers
+    - time
+    - text
+    - aeson
+    - either-unwrap
+    - digestive-functors
+    - bytestring

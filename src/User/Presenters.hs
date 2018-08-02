@@ -11,8 +11,8 @@ toUserPresenter User{..} =
       key = show userKey
   in UserPresenter userName userEmail bd income key
 
-toUserFromUserForm :: UserForm -> Int -> User
-toUserFromUserForm UserForm{..} key =
+fromUserForm :: UserForm -> Int -> User
+fromUserForm UserForm{..} key =
   User 
     key 
     (unpack ufName) 

@@ -1,6 +1,5 @@
 module IoInteractions where
 
-import Data.Word
 import Data.Time.Clock
 import Data.Time.Calendar
 import LoadEnv
@@ -12,7 +11,7 @@ loadConnInfoFromEnv = do
   loadEnv
   ConnInfo
     <$> fromEnv "HOST"
-    <*> (read @Word16 <$> fromEnv "PORT")
+    <*> (read <$> fromEnv "PORT")
     <*> fromEnv "USER"
     <*> fromEnv "PASS"
     <*> fromEnv "DB"

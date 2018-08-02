@@ -1,9 +1,11 @@
 module User.Handlers where
 
-import Data.ByteString.Char8 hiding(map, head, null)
+import Data.ByteString.Char8 hiding(map)
 import Data.Bool
+import Safe as S
 import Control.Monad.IO.Class
 import Data.Aeson
+import Snap.Snaplet
 import Snap.Snaplet.Heist
 import Snap.Core
 import Heist.Interpreted
@@ -23,48 +25,66 @@ handleUsers = do
 
 handleUserAdd :: AppHandler
 handleUserAdd = do
-  sd <- liftIO getSystemDay
-  (view, muf) <- runForm "user_form" $ userForm sd
-  case muf of
-    Just uf -> insertUser uf >> redirect "/users"
-    Nothing -> heistLocal (bindDigestiveSplices view) $ render "users_add" 
+  currentDay <- liftIO getSystemDay
+  (view, muf) <- runForm "user_form" $ userForm currentDay
+  maybe (handleFormErrors view) insertUserIntoDb muf
+  where 
+    insertUserIntoDb uf = do 
+      createdUsers <- insertUser uf
+      bool userNotCreated (redirect "/users") (createdUsers>0)
+    userNotCreated = 
+      finishResponse 500 "Something went wrong while creating the user"
+    handleFormErrors view =
+      heistLocal (bindDigestiveSplices view) $ render "users_add" 
 
 handleUserEdit :: AppHandler
 handleUserEdit = do
-  mId <- getParam "id"
-  let key = maybe (error "Id parameter not found.")
-          (read . unpack)
-          mId
-  users <- selectUserById key
-  bool (handleReq (head users) key) userNotFound (null users) 
+  key <- getUserKeyFromQueryString
+  user <- getUserFromDatabase key
+  currentDay <- liftIO getSystemDay
+  (view, muf) <- runForm "user_form" $ userForm currentDay
+  maybe (handleForm user view) (renderSuccess key) muf
   where 
-    userNotFound = writeBS "User not found."
-    handleReq user userKey = do
-      sd <- liftIO getSystemDay
-      (view, muf) <- runForm "user_form" $ userForm sd
-      case muf of
-        Just uf -> renderSuccess uf userKey
-        Nothing -> handleForm user view
-    renderSuccess uf k = 
-      renderPage (userSplice (toUserFromUserForm uf k)) "users_edit_successful"
+    getUserKeyFromQueryString = do
+      mId <- getParam "id"
+      maybe badRequest (return . read . unpack) mId
+      where
+        badRequest = finishResponse 400 "Parameter 'id' was not found."
+    getUserFromDatabase key = do
+      recoveredUsers <- selectUserById key
+      maybe userNotFound return (S.headMay recoveredUsers)
+      where 
+        userNotFound = finishResponse 404 "User was not found."
+    renderSuccess key uf = 
+      renderPage (userSplice (fromUserForm uf key)) "users_edit_successful"
     handleForm u v =
       renderPage (initialSplices u v) "users_edit"
     renderPage splices page =
       heistLocal (bindSplices splices) $ render page
-    -- | Splices taken from digestive functors and the user data taken
-    -- from the database.
+    -- | Splices taken from digestive functors and the user data taken from the
+    -- database.
     initialSplices user view = do
       userSplice user
       digestiveSplices view
-        
+
 handleUserPut :: AppHandler
 handleUserPut = do
-  body <- readRequestBody 5000
-  logError $ pack (show body)
-  maybe (error "Malformed request body") update (decode body)
-  where update u = do
-          updatedUserCount <- updateUser u
-          bool (writeBS "Did not update any user.")
-            (writeBS "User updated successfully.")
-            (updatedUserCount>0)
+  user <- getUserFromRequestBody
+  update user
+  where 
+    getUserFromRequestBody = do
+      body <- readRequestBody 5000
+      maybe malformedBody return $ decode body
+      where malformedBody 
+              = finishResponse 400 "Malformed request body"
+    update u = do 
+      updatedUserCount <- updateUser u
+      bool (writeBS "Did not update any user.")
+        (writeBS "User updated successfully.")
+        (updatedUserCount>0)
 
+finishResponse :: Int -> ByteString -> Handler App App a
+finishResponse code msg = do
+  modifyResponse $ setResponseCode code
+  writeBS msg
+  getResponse >>= finishWith

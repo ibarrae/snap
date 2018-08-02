@@ -16,10 +16,10 @@ spec = do
             `shouldBe`
           UserPresenter "Esteban" "foo@foo.com" 
             "1858-11-18" "1000.00" "1"
-  describe "toUserFromUserForm" $ 
+  describe "fromUserForm" $ 
     context "when evaluating a UserForm and an Int" $
       it "responds with a User" $
-        toUserFromUserForm
+        fromUserForm
           (UserForm "Esteban" "foo@foo.com" 
             (ModifiedJulianDay 1) "123" Male (Currency 1000))
           1

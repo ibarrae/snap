@@ -1,10 +1,11 @@
 {-# OPTIONS_GHC -funbox-strict-fields #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving, LambdaCase #-}
 module User.Types where
 
 import Data.Time.Calendar
 import Snap.Snaplet.PostgresqlSimple
 import Data.Aeson
+import Data.Aeson.Types
 import Database.PostgreSQL.Simple.ToField
 import Database.PostgreSQL.Simple.FromField
 import qualified Data.ByteString.Char8 as B
@@ -22,12 +23,12 @@ instance ToField Currency where
   toField = toField . unCurrency
 
 instance FromField Currency where
-  fromField _ md = 
+  fromField _ = 
     maybe (error "Could not load currency") 
-    (return . Currency . read . B.unpack) md
+    (return . Currency . read . B.unpack)
 
 instance PathPiece Currency where
-  fromPathPiece = fmap Currency . readMaybe @Double . T.unpack
+  fromPathPiece = fmap Currency . readMaybe . T.unpack
   toPathPiece = T.pack . printf "%.2f" . unCurrency
 
 data User = User
@@ -77,17 +78,17 @@ instance ToRow User where
     , toField userIncome]
 
 instance FromJSON Gender where
-  parseJSON = withText "gender" $ \s ->
-    case s of
+  parseJSON = withText "gender" $ \case
       "Male"   -> return Male
       "Female" -> return Female
-      _        -> return Other
+      "Other"  -> return Other
+      _        -> fail "Unknown gender"
 
 instance ToJSON Gender where
   toJSON = String . T.pack . show
 
 instance FromJSON User where
-  parseJSON = withObject "user" $ \v -> User
+  parseJSON (Object v) = User
     <$> v .: "key"
     <*> v .: "name"
     <*> v .: "email"
@@ -95,17 +96,18 @@ instance FromJSON User where
     <*> v .: "password"
     <*> v .: "gender"
     <*> v .: "income"
+  parseJSON invalid = typeMismatch "User" invalid
 
 instance ToJSON User where
   toJSON User{..} =
     object 
-    [ "key" .= userKey
-    , "name" .= userName
-    , "email" .= userEmail
+    [ "key"      .= userKey
+    , "name"     .= userName
+    , "email"    .= userEmail
     , "birthday" .= userBirthDate
     , "password" .= userPassword
-    , "gender" .= userGender
-    , "income" .= userIncome]
+    , "gender"   .= userGender
+    , "income"   .= userIncome]
 
 data UserPresenter
   = UserPresenter
