@@ -19,7 +19,7 @@ jobs:
           POSTGRES_PASSWORD: ""
           POSTGRES_DB: snap
         steps:
-          - run: echo '/usr/lib/postgresql/9.6/bin/:$PATH' >> $BASH_ENV
+          - run: echo 'export PATH=/usr/lib/postgresql/9.6/bin/:$PATH' >> $BASH_ENV
     steps:
       - checkout
       - restore_cache:
