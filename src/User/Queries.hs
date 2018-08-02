@@ -1,3 +1,4 @@
+{-# LANGUAGE QuasiQuotes #-}
 module User.Queries where
 
 import Database.PostgreSQL.Simple.SqlQQ

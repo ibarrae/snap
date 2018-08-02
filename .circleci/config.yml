@@ -18,9 +18,12 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: ""
           POSTGRES_DB: snap
-        steps:
-          - run: echo 'export PATH=/usr/lib/postgresql/9.6/bin/:$PATH' >> $BASH_ENV
     steps:
+      - run:
+          name: Update PATH and Define Environment Variable at Runtime
+          command: |
+            echo 'export PATH=/usr/lib/postgresql/9.6/bin/:$PATH' >> $BASH_ENV
+            source $BASH_ENV
       - checkout
       - restore_cache:
           keys:
