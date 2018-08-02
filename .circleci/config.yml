@@ -18,8 +18,9 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: ""
           POSTGRES_DB: snap
+        steps:
+          - run: echo '/usr/lib/postgresql/9.6/bin/:$PATH' >> $BASH_ENV
     steps:
-      - run: echo '/usr/lib/postgresql/9.6/bin/:$PATH' >> $BASH_ENV
       - checkout
       - restore_cache:
           keys:

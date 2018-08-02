@@ -22,6 +22,6 @@ insertUserQuery =
 deleteUserQuery :: Query
 deleteUserQuery =
   [sql|
-    DELETE snap_user 
+    DELETE FROM snap_user 
     WHERE id = ?
   |]
