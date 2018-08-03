@@ -18,4 +18,4 @@ fromEnv :: String -> IO String
 fromEnv tag = do
   v <- lookupEnv tag
   maybe (error $ msg tag) return v
-  where msg t = "Could not load var: " ++ t
+  where msg = (++) "Could not load var: "

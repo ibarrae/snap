@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 14249a96064004b7608b1a092b09580259bc36c257e69e07ba490bc8c30efdb8
+-- hash: a9b43326740d8dd1abbd0e58d89a15d37613bc9e7ff2eec4f9152377c054f257
 
 name:           snap-example
 version:        1.0.6
@@ -41,6 +41,8 @@ library
       User.Splices
       User.Types
       User.Validations
+      Utils.Database
+      Utils.Web
   other-modules:
       Paths_snap_example
   hs-source-dirs:
