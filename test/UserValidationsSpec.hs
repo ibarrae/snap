@@ -1,10 +1,10 @@
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 module UserValidationsSpec where
 
+import Data.Text
 import Test.Hspec
 import Data.Time.Calendar
 import Control.Monad.IO.Class
-import Data.Text
 import Text.Digestive.Types
 import IoInteractions
 import User.Validations

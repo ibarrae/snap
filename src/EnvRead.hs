@@ -1,6 +1,5 @@
 module EnvRead where
 
-import Data.Word
 import LoadEnv
 import System.Environment
 import Database
@@ -10,7 +9,7 @@ loadConnInfoFromEnv = do
   loadEnv
   ConnInfo
     <$> fromEnv "HOST"
-    <*> (read @Word16 <$> fromEnv "PORT")
+    <*> (read <$> fromEnv "PORT")
     <*> fromEnv "USER"
     <*> fromEnv "PASS"
     <*> fromEnv "DB"

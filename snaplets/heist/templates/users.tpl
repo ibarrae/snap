@@ -1,4 +1,5 @@
 <apply template="base">
+  <script src="/static/api.js"/>
   <h1> Users </h1>
   <br/>
   <a href ="/users/add">New User</a>
@@ -20,7 +21,7 @@
           <td><income/></td>
           <td>
             <button>Delete</button>
-            <button>Update</button>
+            <button onclick="redirectToUserEdit(${id})">Update</button>
           </td>
         </tr>
       </users>
