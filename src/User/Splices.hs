@@ -9,8 +9,8 @@ import User.Types
 type UserSplice s 
   = Splices (Splice s)
 
-userSplices :: (Monad s) => [UserPresenter] -> UserSplice s
-userSplices u = "users" ## mapSplices (runChildrenWith . userPresenterSplice) u
+usersSplices :: (Monad s) => [UserPresenter] -> UserSplice s
+usersSplices u = "users" ## mapSplices (runChildrenWith . userPresenterSplice) u
 
 userPresenterSplice :: (Monad s) => UserPresenter -> UserSplice s
 userPresenterSplice UserPresenter{..} = do
@@ -19,5 +19,16 @@ userPresenterSplice UserPresenter{..} = do
   generateSplice "bd" upBirthday
   generateSplice "income" upIncome
   generateSplice "id" upId
-  where 
-    generateSplice b v = b ## textSplice $ pack v
+  
+userSplice :: (Monad s) => User -> UserSplice s
+userSplice User {..} = do
+  generateSplice "key" (show userKey)
+  generateSplice "name" userName
+  generateSplice "email" userEmail
+  generateSplice "birthday" (show userBirthDate)
+  generateSplice "password" userPassword
+  generateSplice "gender" (show userGender)
+  generateSplice "income" (show $ unCurrency userIncome)
+
+generateSplice :: (Monad s) => Text -> String -> UserSplice s
+generateSplice tag value = tag ## textSplice $ pack value

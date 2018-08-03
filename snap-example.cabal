@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 31e8263117747f972eb11b73c24a2a62537365fa1b2b7a69d8438f65f527fc25
+-- hash: 14249a96064004b7608b1a092b09580259bc36c257e69e07ba490bc8c30efdb8
 
 name:           snap-example
 version:        1.0.6
@@ -28,6 +28,7 @@ library
   exposed-modules:
       Application
       Database
+      EnvRead
       IoInteractions
       Routes
       Site
@@ -47,12 +48,12 @@ library
   default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications FlexibleInstances
   ghc-options: -Wall -Werror
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , base >=4.7 && <5
     , bytestring
     , digestive-functors
     , digestive-functors-heist
     , digestive-functors-snap
-    , either-unwrap
     , email-validate
     , heist
     , lens
@@ -61,6 +62,7 @@ library
     , mtl
     , path-pieces
     , postgresql-simple
+    , safe
     , snap
     , snap-core
     , snap-server
@@ -80,27 +82,8 @@ executable snap-example-exe
   ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , bytestring
-    , digestive-functors
-    , digestive-functors-heist
-    , digestive-functors-snap
-    , either-unwrap
-    , email-validate
-    , heist
-    , lens
-    , load-env
-    , map-syntax
-    , mtl
-    , path-pieces
-    , postgresql-simple
     , snap
-    , snap-core
     , snap-example
-    , snap-server
-    , snaplet-postgresql-simple
-    , text
-    , time
-    , transformers
   default-language: Haskell2010
 
 test-suite snap-example-test
@@ -108,6 +91,7 @@ test-suite snap-example-test
   main-is: Spec.hs
   other-modules:
       SiteSpec
+      UserJsonSpec
       UserPresenterSpec
       UserValidationsSpec
       Paths_snap_example
@@ -116,28 +100,16 @@ test-suite snap-example-test
   default-extensions: OverloadedStrings QuasiQuotes RecordWildCards TypeApplications FlexibleInstances
   ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , base >=4.7 && <5
     , bytestring
     , containers
     , digestive-functors
-    , digestive-functors-heist
-    , digestive-functors-snap
     , either-unwrap
-    , email-validate
-    , heist
     , hspec
-    , lens
-    , load-env
-    , map-syntax
-    , mtl
-    , path-pieces
-    , postgresql-simple
     , snap
     , snap-core
     , snap-example
-    , snap-server
-    , snaplet-postgresql-simple
     , text
     , time
-    , transformers
   default-language: Haskell2010

@@ -21,7 +21,7 @@
           <td><income/></td>
           <td>
             <button onclick="deleteUser(${id})">Delete</button>
-            <button>Update</button>
+            <button onclick="redirectToUserEdit(${id})">Update</button>
           </td>
         </tr>
       </users>

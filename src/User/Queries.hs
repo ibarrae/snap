@@ -10,6 +10,14 @@ allUsersQuery =
     FROM snap_user 
   |]
 
+userByIdQuery :: Query
+userByIdQuery = 
+  [sql|
+    SELECT *
+    FROM snap_user
+    WHERE id = ?
+  |]
+
 insertUserQuery :: Query
 insertUserQuery =
   [sql|
@@ -17,6 +25,19 @@ insertUserQuery =
     (name, email, birth_date, password, gender, income)
     VALUES 
     (?, ?, ?, ?, ?, ?)
+  |]
+
+updateUserQuery :: Query
+updateUserQuery =
+  [sql|
+    UPDATE snap_user
+    set name = ?,
+    email = ?,
+    birth_date = ?,
+    password = ?,
+    gender = ?,
+    income = ?
+    WHERE id = ?
   |]
 
 deleteUserQuery :: Query

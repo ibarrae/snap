@@ -27,7 +27,7 @@ userForm d = UserForm
 
 passwordForm :: (Monad m) => Form Text m PasswordForm
 passwordForm = PasswordForm
-  <$> textInput "password" invalidName validName
+  <$> textInput "password" invalidPassword validPassword
   <*> "passwordConfirmation" .: text Nothing
 
 textInput :: (Monad m) => Text -> Text -> (Text -> Bool) -> Form Text m Text

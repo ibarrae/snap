@@ -1,7 +1,5 @@
-module IoInteractions where
+module EnvRead where
 
-import Data.Time.Clock
-import Data.Time.Calendar
 import LoadEnv
 import System.Environment
 import Database
@@ -21,6 +19,3 @@ fromEnv tag = do
   v <- lookupEnv tag
   maybe (error $ msg tag) return v
   where msg t = "Could not load var: " ++ t
-
-getSystemDay :: IO Day
-getSystemDay = utctDay <$> getCurrentTime
