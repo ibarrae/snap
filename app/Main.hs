@@ -2,7 +2,7 @@ module Main where
 
 import Snap
 import Site
-import EnvRead
+import IoInteractions
 
 main :: IO ()
 main = do

@@ -39,3 +39,10 @@ updateUserQuery =
     income = ?
     WHERE id = ?
   |]
+
+deleteUserQuery :: Query
+deleteUserQuery =
+  [sql|
+    DELETE FROM snap_user 
+    WHERE id = ?
+  |]

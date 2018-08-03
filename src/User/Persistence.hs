@@ -14,6 +14,9 @@ selectUserById key = query userByIdQuery [key]
 insertUser :: (HasPostgres m) => UserForm -> m Int64
 insertUser = execute insertUserQuery
 
+deleteUser :: (HasPostgres m) => Int -> m Int64
+deleteUser key = execute deleteUserQuery [key]
+
 updateUser :: (HasPostgres m) => User -> m Int64
 updateUser User{..} = execute updateUserQuery 
   [ userName

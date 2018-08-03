@@ -1,5 +1,8 @@
 # Changelog for snap
-
+## 1.0.6
+    - Added the feature of deleting a user with a DELETE request.
+    - Added tests for user queries.
+    
 ## 1.0.5
     - Changed names of migration files and EnvRead module.
     - Added persistence for inserting new user into DB.

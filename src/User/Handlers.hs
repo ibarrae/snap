@@ -1,9 +1,10 @@
 module User.Handlers where
 
 import Data.ByteString.Char8 hiding(map)
-import Data.Bool
 import Safe as S
 import Control.Monad.IO.Class
+import Data.Bool
+import qualified Data.ByteString.Char8 as BS
 import Data.Aeson
 import Snap.Snaplet
 import Snap.Snaplet.Heist
@@ -86,3 +87,14 @@ finishResponse code msg = do
   modifyResponse $ setResponseCode code
   writeBS msg
   getResponse >>= finishWith
+
+handleUserDelete :: AppHandler
+handleUserDelete = do
+  mkey <- getParam "id"
+  numDeletedUsers <- deleteUser 
+        (maybe 
+          (error "Could not parse id parameter")
+          (read . BS.unpack) 
+          mkey)
+  bool (logError "Something went wrong while deleting the user.") 
+    (writeBS "Correctly deleted") (numDeletedUsers>0)

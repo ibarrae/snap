@@ -30,5 +30,5 @@ userSplice User {..} = do
   generateSplice "gender" (show userGender)
   generateSplice "income" (show $ unCurrency userIncome)
 
-generateSplice:: (Monad s) => Text -> String -> UserSplice s
+generateSplice :: (Monad s) => Text -> String -> UserSplice s
 generateSplice tag value = tag ## textSplice $ pack value
