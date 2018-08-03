@@ -5,12 +5,6 @@ import Data.Int
 import User.Queries
 import User.Types
 
-selectAllUsers :: (HasPostgres m) => m [User]
-selectAllUsers = query_ allUsersQuery
-
-selectUserById :: (HasPostgres m) => Int -> m [User]
-selectUserById key = query userByIdQuery [key]
-
 insertUser :: (HasPostgres m) => UserForm -> m Int64
 insertUser = execute insertUserQuery
 

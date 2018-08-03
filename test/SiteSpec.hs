@@ -61,7 +61,15 @@ spec =
       it "should respond with status 200" $ do
         ci <- loadConnInfoFromEnv
         er <- T.runHandler Nothing 
-          (delete "/users/delete/id" $ M.fromList [("id", ["500"])]) 
+          (delete "/users/delete/id" $ M.fromList [("id", ["1"])]) 
           handleUserDelete $ appInit ci
         let r = fromRight er
         rspStatus r `shouldBe` 200
+    context "when requesting /users/delete/ without the id parameter" $
+      it "should respond with status 200" $ do
+        ci <- loadConnInfoFromEnv
+        er <- T.runHandler Nothing 
+          (delete "/users/delete/id" M.empty) 
+          handleUserDelete $ appInit ci
+        let r = fromRight er
+        rspStatus r `shouldBe` 400

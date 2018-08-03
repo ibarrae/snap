@@ -22,7 +22,7 @@ userForm d = UserForm
           (validBirthday d) (dateFormlet "%0Y-%m-%d" Nothing)
         passwordInput = 
           "pass_conf" .: validate matchesConfirmation passwordForm
-        genderInput = "gender" .: choice (mkChoice :: [(Gender,Text)]) Nothing
+        genderInput = "gender" .: choice mkChoice Nothing
         incomeInput = "income" .: validate validIncome (text $ Just "0.00")
 
 passwordForm :: (Monad m) => Form Text m PasswordForm
